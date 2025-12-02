@@ -1,0 +1,174 @@
+/* =======================
+Fondo cálido nocturno + escarcha tenue
+======================= */
+body {
+    background: linear-gradient(to bottom, #4B1E16, #2B0C0A); /* naranja oscuro a rojo profundo */
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+
+    position: relative;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Escarcha suave en esquinas */
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent 60%),
+        radial-gradient(circle at top right, rgba(255,255,255,0.05), transparent 60%),
+        radial-gradient(circle at bottom left, rgba(255,255,255,0.05), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(255,255,255,0.05), transparent 60%);
+}
+
+/* =======================
+Estrellas pequeñas
+======================= */
+#stars {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 30vh; /* solo la parte superior */
+    pointer-events: none;
+    background: transparent;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+    from { opacity: 0.2; }
+    to { opacity: 1; }
+}
+
+/* Estrella central grande */
+#central-star {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    background: gold;
+    clip-path: polygon(
+        50% 0%, 61% 35%, 98% 35%, 68% 57%,
+        79% 91%, 50% 70%, 21% 91%, 32% 57%,
+        2% 35%, 39% 35%
+    );
+    animation: twinkle 1.5s infinite alternate;
+    z-index: 5;
+}
+
+/* =======================
+Imagen central
+======================= */
+.Corona-box {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 100px; /* espacio desde top */
+    flex-direction: column;
+    width: 100%;
+}
+
+.Corona-box ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.Corona-box img {
+    display: block;
+    width: 100%;      /* ancho completo */
+    height: auto;
+    max-width: none;
+    animation: resaltar 2s infinite alternate;
+}
+
+@keyframes resaltar {
+    from { transform: scale(1); filter: brightness(1); }
+    to { transform: scale(1.05); filter: brightness(1.2); }
+}
+
+/* =======================
+Texto centrado
+======================= */
+body p {
+    text-align: center;
+    color: #fff;
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 150px auto 30px auto;  /* aumentamos margin-top a 150px */
+    line-height: 1.6;
+}
+/* =======================
+NIEVE
+======================= */
+#snow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.flake {
+    position: absolute;
+    top: -10px;
+    color: white;
+    opacity: 0.7;
+    user-select: none;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to { transform: translateY(110vh) rotate(360deg); }
+}
+
+/* =======================
+Responsivo
+======================= */
+@media screen and (max-width: 768px) {
+    .Corona-box img {
+        max-width: 100%;
+    }
+
+    body p {
+        font-size: 1rem;
+        margin: 20px auto;
+    }
+
+    #central-star {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    body p {
+        font-size: 0.9rem;
+    }
+
+    #central-star {
+        width: 25px;
+        height: 25px;
+    }
+}
+
